@@ -46,6 +46,12 @@ body{
     justify-content: center;
 }
 
+.container-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #result{
-    display: none;
+    /* display: none; */
 }

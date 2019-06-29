@@ -1,8 +1,11 @@
-let button = document.getElementById('battle');
+let button = document.getElementById('btnFight');
 
 button.addEventListener('click', () => {
+  event.preventDefault();
   let user1 = document.getElementById('user-1').value;
   let user2 = document.getElementById('user-2').value;
+  button.innerText = "Buscando...";
+  button.setAttribute("disabled", true);
   battle(user1, user2);
 });
 
@@ -11,7 +14,7 @@ function battle(...users) {
   users.forEach((user) => {
     results.push(points(user));
   });
-  return results;
+  createScore(results);
 }
 
 function points(user) {
@@ -45,5 +48,9 @@ function makeRequest(url) {
     .catch((error) => {
       return false;
   });
+}
+
+function createScore(results) {
+    console.log('results ', results)
 }
 //battle('douglasdemoura', 'luizramos19', 'willrockies');
