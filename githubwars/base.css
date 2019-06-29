@@ -7,7 +7,9 @@
 body{
     background: steelblue!important;
 }
-
+#showcase{
+    background: url("images/background-showcase.jpg") no-repeat center center/cover 
+}
 .container{
     display: flex;
     align-items: center;
