@@ -8,8 +8,14 @@ body{
     background: steelblue!important;
 }
 #showcase{
-    background: url("images/background-showcase.jpg") no-repeat center center/cover 
+    background: url("images/background-showcase.jpg") no-repeat center center/cover
 }
+
+.vs-image img {
+    max-width: 200px;
+    height: auto;
+}
+
 .container{
     display: flex;
     align-items: center;
