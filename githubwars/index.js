@@ -1,24 +1,22 @@
 function getGitInformation(username) {
-    return new Promise((resolve, reject) => {
-        let xhttp = new XMLHttpRequest();
-        let url = `https://api.github.com/users/${username}`;
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                resolve(JSON.parse(xhttp.responseText))
-            }
-        }
-        xhttp.open("GET", url, true)
-        xhttp.send();
-    });
+  let request = `https://api.github.com/users/${username}`;
+  let output;
+
+  fetch(request)
+    .then(function(response) {
+      return response.json();
+    })
+    .catch((error) => {
+      return false;
+  });
 }
 
-function connectApi() {
-    let promise = getGitInformation(username);
-    promise
-        .then(result => {
-            // do something
-        })
-        .catch(err => console.log(err));
+function battle(...users) {
+  let gitUsers = [];
+  users.forEach((user) => {
+    gitUsers.push(getGitInformation(user));
+  }, 0);
+  return gitUsers;
 }
-  
-connectApi();
+
+battle('douglasdemoura', 'luizramos19', 'willrockies');
