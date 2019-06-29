@@ -18,5 +18,10 @@ function battle(...users) {
   }, 0);
   return gitUsers;
 }
+<<<<<<< HEAD
 
 battle('douglasdemoura', 'luizramos19', 'willrockies');
+=======
+  
+connectApi();
+>>>>>>> 2245bd3b74fe3278735aa9674c5fe58ed285983f
