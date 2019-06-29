@@ -1,0 +1,23 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: steelblue;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content:space-around
+
+}
+.container > div{
+    background-color: #cecece;
+    width: auto;
+    height: auto;
+
+}
+
