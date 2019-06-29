@@ -10,6 +10,9 @@ Compare dois usuários do GitHub e veja quem é o vencedor! A pontuação é def
 - (critério a definir).
 
 ## Equipe
+
 Douglas Moura (JavaScript)
+
 Luiz Gustavo (JavaScript)
+
 Wilson Alves (HTML & CSS)
