@@ -9,7 +9,7 @@ button.addEventListener('click', () => {
 function battle(...users) {
   let results = [];
   users.forEach((user) => {
-    results.push({user: user, points: points(user)});
+    results.push(points(user));
   });
   return results;
 }
@@ -24,7 +24,16 @@ function points(user) {
       bonus = 100
     }
 
-    return bonus + data[0].public_repos * 20 + data[0].followers * 10 + data[0].following * 5 + data[1] * 10 + data[0].public_gists * 5;
+    return {
+      user: user,
+      points: bonus + data[0].public_repos * 20 + data[0].followers * 10 + data[0].following * 5 + data[1] * 10 + data[0].public_gists * 5,
+      public_repos: data[0].public_repos,
+      followers: data[0].followers,
+      following: data[0].following,
+      public_gists: data[0].public_gists,
+      stars: data[1],
+      bonus: bonus
+    };
   });
 }
 
