@@ -11,6 +11,8 @@ function battle(...users) {
   users.forEach((user) => {
     results.push(points(user));
   });
+  printResults(results[0], 'user-1-results');
+  printResults(results[1], 'user-2-results');
   return results;
 }
 
@@ -45,5 +47,17 @@ function makeRequest(url) {
     .catch((error) => {
       return false;
   });
+}
+
+function printResults(data, target) {
+  let node = document.getElementById(target);
+  target.innerHTML = `<h2>${data.user}</h2>`;
+  target.innerHTML += `<h3>${data.points} pontos</h3>`;
+  target.innerHTML += `<p>${data.public_repos} repositórios públicos</p>`;
+  target.innerHTML += `<p>${data.followers} seguidores</p>`;
+  target.innerHTML += `<p>${data.following} seguindo</p>`;
+  target.innerHTML += `<p>${data.public_gists} gists</p>`;
+  target.innerHTML += `<p>${data.stars} estrelas</p>`;
+  target.innerHTML += `<p>${data.bonus} bônus (tem bio)</p>`;
 }
 //battle('douglasdemoura', 'luizramos19', 'willrockies');
