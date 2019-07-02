@@ -9,10 +9,14 @@ Compare dois usuários do GitHub e veja quem é o vencedor! A pontuação é def
 - Gists: 5 pontos, cada;
 - (critério a definir).
 
-## Equipe
+# Equipe
 
-Douglas Moura (JavaScript)
+Douglas Moura (JavaScript - Responsável pela conexão com a API)
 
-Luiz Gustavo (JavaScript)
+Luiz Gustavo (JavaScript - Responsável pela manipulação do DOM)
 
-Wilson Alves (HTML & CSS)
+Wilson Alves (HTML & CSS - Responsável pela criação do Slide)
+
+# Link do game
+
+https://confident-fermi-6aa181.netlify.com/
