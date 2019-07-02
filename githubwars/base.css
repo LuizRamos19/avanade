@@ -7,8 +7,13 @@
 body{
     background: steelblue!important;
 }
-#showcase{
+.showcase.-active{
+    display: block;
     background: url("images/background-showcase.jpg") no-repeat center center/cover
+}
+
+.showcase {
+    display: none;
 }
 
 .vs-image img {
@@ -52,6 +57,10 @@ body{
     align-items: center;
 }
 
-#result{
-    /* display: none; */
+.result{
+    display: none;
+}
+
+.result.-active {
+    display: block;
 }

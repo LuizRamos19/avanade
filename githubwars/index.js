@@ -1,4 +1,5 @@
 let button = document.getElementById('btnFight');
+let btnVoltar = document.getElementById('btnVoltar');
 
 button.addEventListener('click', () => {
   event.preventDefault();
@@ -9,38 +10,49 @@ button.addEventListener('click', () => {
   battle(user1, user2);
 });
 
+btnVoltar.addEventListener('click', () => {
+  button.innerText = "Fight";
+  button.removeAttribute("disabled");
+  document.getElementById(`showcase`).classList.add('-active');
+  document.getElementById(`result`).classList.remove('-active');
+});
+
 function battle(...users) {
   let results = [];
-  users.forEach((user) => {
-    results.push(points(user).then((data) => data));
-    console.log(points(user).then((data) => data))
+  users.forEach((user, index) => {
+    points(user, index+1)
   });
-  console.log(results)
-  printResults(results[0], 'user-1-results');
-  printResults(results[1], 'user-2-results');
   return results;
 }
 
-function points(user) {
+function points(user, index) {
   let data = makeRequest(`https://api.github.com/users/${user}`);
-  let stars = makeRequest(`https://api.github.com/users/${user}/starred`).length;
+  let stars = makeRequest(`https://api.github.com/users/${user}/starred`);
   return Promise.all([data, stars]).then(function(data) {
+    let result = {};
     let bonus = 0;
 
     if (null !== data[0].bio) {
       bonus = 100
     }
 
-    return {
+    result =  {
         user: user,
-        points: bonus + data[0].public_repos * 20 + data[0].followers * 10 + data[0].following * 5 + data[1] * 10 + data[0].public_gists * 5,
+        avatar_url: data[0].avatar_url,
+        points: bonus + data[0].public_repos * 20 + data[0].followers * 10 + data[0].following * 5 + data[1].length * 10 + data[0].public_gists * 5,
         public_repos: data[0].public_repos,
+        public_repos_total: data[0].public_repos * 20,
         followers: data[0].followers,
+        followers_total: data[0].followers * 10,
         following: data[0].following,
+        following_total: data[0].following * 5,
         public_gists: data[0].public_gists,
-        stars: data[1],
+        public_gists_total: data[0].public_gists * 5,
+        stars: data[1].length,
+        stars_total: data[1].length * 10,
         bonus: bonus
     };
+    printResults(result, index);
   });
 }
 
@@ -54,16 +66,93 @@ function makeRequest(url) {
   });
 }
 
-function printResults(data, target) {
-  let node = document.getElementById(target);
-  target.innerHTML = `<h2>${data.user}</h2>`;
-  target.innerHTML += `<h3>${data.points} pontos</h3>`;
-  target.innerHTML += `<p>${data.public_repos} repositórios públicos</p>`;
-  target.innerHTML += `<p>${data.followers} seguidores</p>`;
-  target.innerHTML += `<p>${data.following} seguindo</p>`;
-  target.innerHTML += `<p>${data.public_gists} gists</p>`;
-  target.innerHTML += `<p>${data.stars} estrelas</p>`;
-  target.innerHTML += `<p>${data.bonus} bônus (tem bio)</p>`;
-  console.log("TEste", data);
+function printResults(data, index) {
+  let table = document.getElementById(`user-${index}-results`);
+  document.getElementById(`image-${index}`).src = data.avatar_url;
+  document.getElementById(`result`).classList.add('-active');
+  document.getElementById(`showcase`).classList.remove('-active');
+  document.getElementById(`total-${index}`).innerText = `Total: ${data.points}`;
+  let html = createHtmlTable(data);
+  table.innerHTML = html;
 }
-//battle('douglasdemoura', 'luizramos19', 'willrockies');
+
+function createHtmlTable(data) {
+  return `
+      <tr>
+          <th>
+              Critério
+          </th>
+          <th>
+              Qtd
+          </th>
+          <th>
+              Total
+          </th>
+      </tr>
+      <tr>
+          <td>
+              Repositório público
+          </td>
+          <td>
+              ${data.public_repos}
+          </td>
+          <td>
+              ${data.public_repos_total}
+          </td>
+      </tr>
+      <tr>
+          <td>
+              Followers
+          </td>
+          <td>
+              ${data.followers}
+          </td>
+          <td>
+              ${data.followers_total}
+          </td>
+      </tr>
+      <tr>
+          <td>
+              Seguindo
+          </td>
+          <td>
+              ${data.following}
+          </td>
+          <td>
+              ${data.following_total}
+          </td>
+      </tr>
+      <tr>
+          <td>
+              Estrela em repositório
+          </td>
+          <td>
+              ${data.stars}
+          </td>
+          <td>
+              ${data.stars_total}
+          </td>
+      </tr>
+      <tr>
+          <td>
+              Gists
+          </td>
+          <td>
+              ${data.public_gists}
+          </td>
+          <td>
+              ${data.public_gists_total}
+          </td>
+      </tr>
+      <tr>
+          <td>
+              Bonus
+          </td>
+          <td>
+          </td>
+          <td>
+              ${data.bonus}
+          </td>
+      </tr>
+  `;
+}
